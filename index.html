@@ -3,9 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="style.css" />
+    <!-- font awesome cdnjs-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
     <title>WX Clima</title>
   </head>
-  <body></body>
+  <body>
+    <div class="app-container">
+      <div class="details-card">
+        <!-- top part -->
+        <div class="card-header">
+          <!-- search bar -->
+          <div class="search-area">
+            <i class="fa-solid fa-magnifying-glass" style="color: #ffffff"></i>
+            <input
+              type="search"
+              name=""
+              id=""
+              placeholder="Search a city...."
+            />
+          </div>
+
+          <div class="location-info">
+            <div class="place-name-with-date">
+              <p class="city-name">Berlin, Germany</p>
+              <p class="date">Monday, June 23</p>
+            </div>
+            <div class="notification-menu-btn">
+              <button class="notification-btn">
+                <i class="fa-regular fa-bell" style="color: #ffffff"></i>
+              </button>
+              <button class="menu-btn">
+                <i class="fa-solid fa-bars" style="color: #ffffff"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- middle part: main weather display -->
+        <div class="current-weather">
+          <img
+            src="https://openweathermap.org/img/wn/10d.png"
+            alt=""
+            class="weather-visual"
+          />
+          <div class="temp-display-description">
+            <h1 class="temp-value">24°</h1>
+            <p class="weather-description">Partly Cloudy</p>
+          </div>
+        </div>
+        <!-- middle part: high/low temperature range -->
+        <div class="temp-range">
+          <div class="temp-high">
+            <p class="temp-label">High:</p>
+            <p class="temp-value">26°C</p>
+            <i class="fa-solid fa-arrow-trend-up" style="color: #ffffff"></i>
+          </div>
+          <div class="temp-low">
+            <p class="temp-label">Low:</p>
+            <p class="temp-value">18°C</p>
+            <i class="fa-solid fa-arrow-trend-down" style="color: #ffffff"></i>
+          </div>
+        </div>
+        <!-- bottom part: additional weather details -->
+        <div class="additional-weather-details">
+          <div class="humidity-details">
+            <span class="detail-label">Humidity</span>
+            <span class="detail-value">82%</span>
+          </div>
+          <div class="detail-seperator"></div>
+          <div class="wind-details">
+            <span class="detail-label">Wind</span>
+            <span class="detail-value">19 km/h</span>
+          </div>
+          <div class="detail-seperator"></div>
+          <div class="rain-details">
+            <span class="detail-label">Cloud</span>
+            <span class="detail-value">24%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="5day-forecast"></div>
+    </div>
+  </body>
+  <!-- axios cdn -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="app.js"></script>
 </html>
