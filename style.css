@@ -1,8 +1,163 @@
 :root {
   --bg-gradient: linear-gradient(
-    353deg,
-    rgba(2, 0, 36, 1) 0%,
+    335deg,
+    rgb(12, 8, 80) 0%,
     rgba(9, 9, 121, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
+    rgb(80, 189, 252) 100%
   );
+  --bg-color: rgba(110, 168, 235);
 }
+
+* {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  color: white;
+}
+
+.app-container {
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.details-card {
+  background-image: var(--bg-gradient);
+  border-radius: 1rem;
+  padding: 2rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.search-area {
+  background: rgba(255, 255, 255, 0.108);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.5px);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  /* for the glassmorphism effect */
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.search-area input {
+  background-color: transparent;
+  border: none;
+  color: white;
+  margin-left: 0.5rem;
+}
+.search-area input::placeholder {
+  color: rgba(255, 255, 255, 0.718);
+}
+
+.location-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+.city-name {
+  font-size: 1.35rem;
+  margin-bottom: 0.35rem;
+}
+.notification-menu-btn button {
+  background: rgba(0, 0, 0, 0.143);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
+  border: 1px solid rgba(255, 255, 255, 0.118);
+  padding: 0.5rem;
+}
+.notification-menu-btn button i {
+  font-size: 1rem;
+}
+
+.current-weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.current-weather img {
+  height: fit-content;
+}
+.temp-display-description .temp-value {
+  font-size: 4rem;
+}
+
+.temp-range {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.temp-range > div {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.143);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
+  border: 1px solid rgba(255, 255, 255, 0.118);
+  padding: 0.5rem 1rem;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.temp-range > div * {
+  margin: 0rem 0.175rem;
+}
+
+.additional-weather-details {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.143);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
+  border: 1px solid rgba(255, 255, 255, 0.118);
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.detail-seperator {
+  width: 0.1rem;
+  background-color: rgba(255, 255, 255, 0.705);
+}
+.additional-weather-details > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.additional-weather-details > div .detail-label {
+  color: rgba(255, 255, 255, 0.705);
+  font-size: 0.8rem;
+  margin-bottom: 0.1rem;
+}
+.additional-weather-details > div .detail-value {
+  font-weight: 700;
+}
+/* .additional-weather-details > * {
+  margin: 0rem 0.85rem;
+} */
