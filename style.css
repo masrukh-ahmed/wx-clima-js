@@ -55,13 +55,18 @@ body {
   margin-bottom: 1rem;
 }
 .search-area input {
+  flex: 1;
   background-color: transparent;
   border: none;
+  outline: none;
   color: white;
-  margin-left: 0.5rem;
+  margin-left: 0.75rem;
 }
 .search-area input::placeholder {
   color: rgba(255, 255, 255, 0.718);
+}
+.search-area input:focus {
+  color: white;
 }
 
 .location-info {
@@ -98,6 +103,9 @@ body {
 }
 .temp-display-description .temp-value {
   font-size: 4rem;
+}
+.temp-display-description .weather-description {
+  text-transform: capitalize;
 }
 
 .temp-range {
