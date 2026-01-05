@@ -97,9 +97,15 @@ body {
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
+  width: 100%;
 }
-.current-weather img {
-  height: fit-content;
+.current-weather .weather-visual {
+  flex: 1;
+  justify-content: flex-end;
+}
+.temp-display-description {
+  flex: 1;
+  justify-content: flex-start;
 }
 .temp-display-description .temp-value {
   font-size: 4rem;
