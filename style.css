@@ -141,8 +141,8 @@ body {
 
 .additional-weather-details {
   display: flex;
-  justify-content: space-around;
-  padding: 1rem 1.5rem;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
   background: rgba(0, 0, 0, 0.143);
   border-radius: 0.5rem;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -171,6 +171,13 @@ body {
 }
 .additional-weather-details > div .detail-value {
   font-weight: 700;
+}
+.humidity-details,
+.cloud-details {
+  flex: 1;
+}
+.wind-details {
+  flex: 1.5;
 }
 /* .additional-weather-details > * {
   margin: 0rem 0.85rem;
