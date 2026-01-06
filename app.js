@@ -16,10 +16,18 @@ const lowTemp = document.querySelector(".temp-low .temp-value");
 const humidity = document.querySelector(".humidity-details .detail-value");
 const wind = document.querySelector(".wind-details .detail-value");
 const cloud = document.querySelector(".cloud-details .detail-value");
+const todayForecastCards = Array.from(
+  document.querySelectorAll(".today-forecast-section .hourly-card")
+);
+const forecastContainer = document.querySelector(".forecast-list");
 
 //created the required functions*******************************************************************************************
-function prepareAPIurl(placeName) {
+function prepareWeatherAPIurl(placeName) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${placeName}&appid=${apiKey}&units=metric`; // Added units=metric for Celsius
+  return apiUrl;
+}
+function prepareForecastAPIurl(placeName) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${placeName}&appid=${apiKey}&units=metric`; // Added units=metric for Celsius
   return apiUrl;
 }
 
@@ -48,7 +56,12 @@ function fetchCustomWeatherIcon(weatherCode) {
   return `assets/icons/${iconFileName}`;
 }
 
-async function fetchData(url) {
+async function fetchWeatherData(url) {
+  const fetchedData = await axios.get(url);
+  // console.log(fetchedData); for testing
+  return fetchedData;
+}
+async function fetchForecastData(url) {
   const fetchedData = await axios.get(url);
   // console.log(fetchedData); for testing
   return fetchedData;
@@ -63,8 +76,8 @@ function formatDate(givenDate) {
   return givenDate.toLocaleDateString("en-US", options); //learnt this for the first time, very useful for formatting date into required formats
 }
 
-async function info(apiUrl) {
-  const data = await fetchData(apiUrl);
+async function weatherInfo(apiUrl) {
+  const data = await fetchWeatherData(apiUrl);
   const cityName = `${data.data.name}, ${data.data.sys.country}`;
   const today = new Date();
   const temp = Math.round(data.data.main.temp);
@@ -100,8 +113,35 @@ async function info(apiUrl) {
     cloudDetail,
   };
 }
+async function forecastInfo(apiUrl) {
+  const forecastData = await fetchForecastData(apiUrl);
+  const next6hours = forecastData.data.list.slice(0, 6);
+  const next5days = forecastData.data.list
+    .filter((eachDayData) => {
+      if (eachDayData.dt_txt.split(" ")[1].slice(0, 5) == "12:00") {
+        return eachDayData;
+      }
+    })
+    .map((eachData) => {
+      return {
+        time: eachData.dt_txt,
+        iconCode: eachData.weather[0].icon,
+        temp: eachData.main.temp.toFixed(1),
+        tempDescription: eachData.weather[0].description,
+      };
+    }); // my first time combining array methods on top of each other - proud of myself
+  const hourlyData = next6hours.map((data) => {
+    return {
+      time: data.dt_txt.split(" ")[1].slice(0, 5),
+      iconCode: data.weather[0].icon,
+      temp: data.main.temp.toFixed(1),
+    };
+  });
 
-async function updateUI(url) {
+  return { hourlyData, next5days };
+}
+
+async function updateWeatherUI(url) {
   let {
     cityName,
     today,
@@ -113,7 +153,7 @@ async function updateUI(url) {
     humidityDetail,
     windDetail,
     cloudDetail,
-  } = await info(url); //destructuring the incoming data - useful
+  } = await weatherInfo(url); //destructuring the incoming data - useful
   //ui updation of each part of the weather detail card
   cityWithCountry.innerHTML = cityName;
   todayDate.innerHTML = `${formatDate(today)}`;
@@ -126,19 +166,62 @@ async function updateUI(url) {
   wind.innerHTML = `${windDetail} km/h`;
   cloud.innerHTML = `${cloudDetail}%`;
 }
+async function updateForecastUI(url) {
+  const { hourlyData, next5days } = await forecastInfo(url);
+
+  //updating today's hourly forecast UI section
+  todayForecastCards.forEach((card, index) => {
+    let time = card.querySelector(".hourly-time"); //used these method of selecting elements in DOM -  discovered myself
+    let icon = card.querySelector(".hourly-icon");
+    let temp = card.querySelector(".hourly-temp");
+    time.innerHTML = hourlyData[index].time;
+    icon.src = fetchCustomWeatherIcon(hourlyData[index].iconCode);
+    temp.innerHTML = `${hourlyData[index].temp}°`;
+  });
+  //updating 5 day forecast UI section
+  forecastContainer.innerHTML = next5days
+    .map((data) => {
+      const day = new Date(data.time).toLocaleDateString("en-US", {
+        //learnt that for changing dates they need to be a date object, no string will work for the localeDateString method
+        weekday: "short",
+      });
+      const iconCode = data.iconCode;
+      const temp = data.temp;
+      const description = data.tempDescription;
+      return `
+      <div class="forecast-item">
+            <span class="forecast-day">${day}</span>
+            <div class="forecast-icon">
+              <img src="/assets/icons/${iconCode}.svg" alt="weather" />
+            </div>
+            <span class="forecast-temp">${temp}°C</span>
+            <span class="forecast-description">${description}</span>
+          </div>
+      `;
+    })
+    .join("");
+}
 
 //adding the event listeners ************************************************************************************************
 searchInput.addEventListener("change", (e) => {
   let enteredName;
   if (e.currentTarget.value == "") {
     enteredName = "Kolkata"; //default to this city name cuz that's where I live
-    //I could have used the location API to get my location first and then based off that I could set the default location on every page reload
-    //but it will take a bit of reading and understanding that API so will implement that later
   } else {
     enteredName = e.currentTarget.value;
   }
-  const url = prepareAPIurl(enteredName);
-  updateUI(url);
+  const weatherUrl = prepareWeatherAPIurl(enteredName);
+  const forecastUrl = prepareForecastAPIurl(enteredName);
+  updateWeatherUI(weatherUrl);
+  updateForecastUI(forecastUrl);
 });
 
-// updateUI(); //to gather default city's weather data on page load
+window.addEventListener("load", () => {
+  //to gather default city (Kolkata) weather data on page load
+  //I could have used the location API to get my location first and then based off that I could set the default location on every page reload
+  //but it will take a bit of reading and understanding that API so will implement that later cuz I am in a hurry
+  const weatherUrl = prepareWeatherAPIurl("Kolkata");
+  const forecastUrl = prepareForecastAPIurl("Kolkata");
+  updateWeatherUI(weatherUrl);
+  updateForecastUI(forecastUrl);
+});
