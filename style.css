@@ -28,7 +28,7 @@ body {
   width: 95vw;
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
+  margin: 1rem 0rem;
 }
 
 .details-card {
@@ -101,10 +101,10 @@ body {
 }
 .current-weather .weather-visual {
   flex: 1;
-  justify-content: flex-end;
+  justify-self: flex-end;
 }
 .temp-display-description {
-  flex: 1;
+  flex: 0.9;
   justify-content: flex-start;
 }
 .temp-display-description .temp-value {
@@ -182,3 +182,76 @@ body {
 /* .additional-weather-details > * {
   margin: 0rem 0.85rem;
 } */
+
+.today-forecast-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin: 1.5rem 0rem;
+}
+.today-forecast-section .hourly-card {
+  background-color: rgb(75, 143, 226);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.825rem;
+  border-radius: 1rem;
+  padding: 0.5rem 0.25rem;
+  margin: 0rem 0.25rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.075) inset;
+}
+
+.five-day-forecast {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 1rem;
+  color: black;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  margin-bottom: 5rem;
+}
+.five-day-forecast .forecast-title {
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+.five-day-forecast .forecast-list {
+  width: 100%;
+}
+.five-day-forecast .forecast-list .forecast-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 1rem;
+  /* background-color: rgba(2, 72, 91, 0.051); */
+  margin: 1rem 0rem;
+  padding: 0.5rem 1.5rem;
+  background: linear-gradient(to right, #cbd5e1 0%, #c5d1e0 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.five-day-forecast .forecast-list .forecast-item .forecast-temp,
+.forecast-description {
+  flex: 1;
+}
+.forecast-day {
+  flex: 0.5;
+}
+.forecast-icon {
+  flex: 0.5;
+  border-radius: 1rem;
+  height: 30%;
+}
+.forecast-temp {
+  text-align: center;
+}
+.forecast-description {
+  text-transform: capitalize;
+}
