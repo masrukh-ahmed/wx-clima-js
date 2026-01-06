@@ -2,6 +2,8 @@
 
 This project is a small weather application built using vanilla JavaScript and the OpenWeatherMap API (Mobile-First-Design). The main goal of this project was not just to display weather data, but to **apply and solidify multiple JavaScript and DOM concepts together** since I jsut finished the JS30 series and wanted to see how much I have improved. While working on this, I clearly noticed a shift in how I think about frontend logic compared to when I started.
 
+![Working Preview](assets/design/working-preview.gif)
+
 ---
 
 ### Understanding the Overall Flow
